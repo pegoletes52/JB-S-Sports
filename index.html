@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="es" data-jb-theme="mint">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>JB's Sports</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#00C9A7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JB Sports">
+<style>
+:root[data-jb-theme="mint"]{--jb-bg:#EAF6F4;--jb-surface:#FFFFFF;--jb-accent-1:#00C9A7;--jb-accent-2:#00E0A0;--jb-text:#0F2A26;--jb-text-2:#4B6B65;}
+:root[data-jb-theme="ocean"]{--jb-bg:#E8F4FB;--jb-surface:#FFFFFF;--jb-accent-1:#0EA5E9;--jb-accent-2:#06B6D4;--jb-text:#0C2733;--jb-text-2:#4A6B78;}
+:root[data-jb-theme="sage"]{--jb-bg:#EFF5EC;--jb-surface:#FFFFFF;--jb-accent-1:#6BA368;--jb-accent-2:#A3D9A5;--jb-text:#1E2E1B;--jb-text-2:#556B52;}
+:root[data-jb-theme="teal"]{--jb-bg:#E6F7F6;--jb-surface:#FFFFFF;--jb-accent-1:#009688;--jb-accent-2:#26C6DA;--jb-text:#0B2C2A;--jb-text-2:#456A67;}
+:root[data-jb-theme="coral"]{--jb-bg:#FFF1EC;--jb-surface:#FFFFFF;--jb-accent-1:#FF6B5B;--jb-accent-2:#FF9472;--jb-text:#3A1712;--jb-text-2:#7A5148;}
+:root[data-jb-theme="lavanda"]{--jb-bg:#F3EFFB;--jb-surface:#FFFFFF;--jb-accent-1:#8B5CF6;--jb-accent-2:#C084FC;--jb-text:#241A3D;--jb-text-2:#5B4E78;}
+:root[data-jb-theme="noche"]{--jb-bg:#121826;--jb-surface:#1E2536;--jb-accent-1:#00E0A0;--jb-accent-2:#26C6DA;--jb-text:#EDEFF5;--jb-text-2:#9AA3B8;}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{margin:0;background:var(--jb-bg);color:var(--jb-text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:19px;transition:background 300ms ease;padding-bottom:24px;}
+
+header{position:sticky;top:0;z-index:20;background:var(--jb-surface);padding:12px 16px;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.header-row{display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:23px;font-weight:800;background:linear-gradient(135deg,var(--jb-accent-1),var(--jb-accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.header-icons{display:flex;gap:10px;align-items:center;}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:color-mix(in srgb,var(--jb-accent-1) 12%,transparent);display:flex;align-items:center;justify-content:center;font-size:19px;cursor:pointer;transition:transform 200ms ease;}
+.icon-btn:active{transform:scale(0.9);}
+
+.theme-picker{display:flex;gap:7px;margin-top:10px;overflow-x:auto;padding-bottom:2px;}
+.theme-dot{width:22px;height:22px;border-radius:50%;border:2px solid transparent;flex-shrink:0;cursor:pointer;transition:transform 150ms ease;}
+.theme-dot.active{border-color:var(--jb-text);transform:scale(1.15);}
+.theme-dot[data-t="mint"]{background:linear-gradient(135deg,#00C9A7,#00E0A0);}
+.theme-dot[data-t="ocean"]{background:linear-gradient(135deg,#0EA5E9,#06B6D4);}
+.theme-dot[data-t="sage"]{background:linear-gradient(135deg,#6BA368,#A3D9A5);}
+.theme-dot[data-t="teal"]{background:linear-gradient(135deg,#009688,#26C6DA);}
+.theme-dot[data-t="coral"]{background:linear-gradient(135deg,#FF6B5B,#FF9472);}
+.theme-dot[data-t="lavanda"]{background:linear-gradient(135deg,#8B5CF6,#C084FC);}
+.theme-dot[data-t="noche"]{background:#121826;display:flex;align-items:center;justify-content:center;font-size:14px;}
+
+.tabs{display:flex;gap:8px;margin-top:12px;}
+.tab-btn{flex:1;padding:9px 0;border:none;border-radius:12px;background:transparent;color:var(--jb-text-2);font-size:18px;font-weight:600;cursor:pointer;transition:all 200ms ease;}
+.tab-btn.active{background:linear-gradient(135deg,var(--jb-accent-1),var(--jb-accent-2));color:#fff;}
+
+main{padding:18px 16px 40px;max-width:640px;margin:0 auto;}
+.view{display:none;}
+.view.active{display:block;}
+
+h2.section-title{font-size:19px;font-weight:700;margin:22px 0 10px;color:var(--jb-text-2);text-transform:uppercase;letter-spacing:0.4px;}
+h2.section-title:first-child{margin-top:4px;}
+
+.jb-card{background:var(--jb-surface);border-radius:16px;border:1px solid color-mix(in srgb,var(--jb-accent-1) 30%,transparent);box-shadow:0 2px 4px rgba(0,0,0,0.04), 0 10px 28px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.5);animation:jbFadeSlideIn 400ms ease-out;padding:16px;margin-bottom:14px;position:relative;}
+.match-mid{flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--jb-text-2);}
+.match-team-name{font-size:16px;font-weight:800;text-align:center;width:76px;color:var(--jb-text);}
+.badge-fav{display:inline-block;background:linear-gradient(135deg,var(--jb-accent-1),var(--jb-accent-2));color:#fff;font-size:13px;font-weight:800;padding:4px 12px;border-radius:20px;margin-bottom:8px;box-shadow:0 3px 8px color-mix(in srgb,var(--jb-accent-1) 45%,transparent);letter-spacing:0.2px;}
+.countdown-chip{display:inline-block;font-size:13px;font-weight:800;padding:6px 14px;border-radius:20px;margin-top:10px;letter-spacing:0.2px;box-shadow:0 4px 10px rgba(0,0,0,0.12);}
+.ics-btn{margin-top:10px;width:34px;height:34px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--jb-accent-1) 35%,transparent);background:var(--jb-surface);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,0.08);}
+.ics-btn:active{transform:scale(0.92);}
+@keyframes jbFadeSlideIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+.match-card{display:flex;align-items:center;gap:10px;}
+.match-badge{width:38px;height:38px;border-radius:50%;object-fit:contain;background:#f2f2f2;flex-shrink:0;}
+.match-teams{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.match-meta{font-size:14px;color:var(--jb-text-2);margin-top:8px;display:flex;justify-content:space-between;}
+
+.chip-live{background:linear-gradient(135deg,#FF3B5C,#FF7A5C);color:#fff;animation:chipPulse 1.4s ease-in-out infinite;}
+.card-watermark{position:absolute;right:-18px;top:50%;transform:translateY(-50%);width:130px;height:130px;object-fit:contain;opacity:0.07;pointer-events:none;z-index:0;filter:grayscale(0.3);}
+@keyframes scoreShimmer{
+  0%{ text-shadow:0 0 0px rgba(255,59,92,0); transform:scale(1); }
+  25%{ text-shadow:0 0 16px rgba(255,59,92,0.85); transform:scale(1.06); }
+  100%{ text-shadow:0 0 0px rgba(255,59,92,0); transform:scale(1); }
+}
+.live-score{display:inline-block;animation:scoreShimmer 1s ease-out;}
+@media (prefers-reduced-motion: reduce){ .chip-live{animation:none;} .live-score{animation:none;} }
+.chip-soon{background:linear-gradient(135deg,var(--jb-accent-1),var(--jb-accent-2));color:#fff;box-shadow:0 0 10px color-mix(in srgb,var(--jb-accent-1) 45%,transparent);}
+.chip-normal{background:color-mix(in srgb,var(--jb-accent-1) 14%,transparent);color:var(--jb-text);}
+.chip-past{background:color-mix(in srgb,var(--jb-text-2) 16%,transparent);color:var(--jb-text-2);}
+@keyframes chipPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.85;transform:scale(1.04);}}
+
+
+.player-card{display:flex;gap:12px;align-items:center;}
+.player-photo{width:52px;height:52px;border-radius:50%;object-fit:cover;background:#f2f2f2;flex-shrink:0;}
+.player-name{font-weight:700;font-size:18px;}
+.player-sub{font-size:15px;color:var(--jb-text-2);margin-top:2px;}
+.player-link{font-size:14px;color:var(--jb-accent-1);font-weight:600;text-decoration:none;margin-top:4px;display:inline-block;}
+
+.news-item{display:block;padding:12px 0;border-bottom:1px solid color-mix(in srgb,var(--jb-accent-1) 15%,transparent);text-decoration:none;color:var(--jb-text);}
+.news-item:last-child{border-bottom:none;}
+.news-source{font-size:12px;font-weight:700;color:var(--jb-accent-1);text-transform:uppercase;letter-spacing:0.3px;}
+.news-title{font-size:18px;font-weight:600;margin-top:3px;line-height:1.35;}
+.news-time{font-size:14px;color:var(--jb-text-2);margin-top:3px;}
+
+.subtabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;}
+.subtab-btn{padding:7px 14px;border-radius:20px;border:1.5px solid color-mix(in srgb,var(--jb-accent-1) 40%,transparent);background:transparent;color:var(--jb-text);font-size:15px;font-weight:600;white-space:nowrap;cursor:pointer;}
+.subtab-btn.active{background:linear-gradient(135deg,var(--jb-accent-1),var(--jb-accent-2));color:#fff;border-color:transparent;}
+
+.cal-header{display:flex;align-items:center;justify-content:space-between;padding:4px 2px 14px;}
+.cal-header button{background:color-mix(in srgb,var(--jb-accent-1) 14%,transparent);border:none;width:36px;height:36px;border-radius:50%;font-size:18px;font-weight:700;color:var(--jb-text);cursor:pointer;}
+.cal-header button:active{transform:scale(0.9);}
+.cal-title{font-weight:800;font-size:18px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+.cal-weekdays{margin-bottom:6px;text-align:center;font-size:12px;font-weight:700;color:var(--jb-text-2);}
+.cal-day{aspect-ratio:1;border-radius:12px;background:var(--jb-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;font-weight:600;cursor:pointer;border:1.5px solid transparent;position:relative;box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+.cal-day:active{transform:scale(0.94);}
+.cal-day.cal-empty{background:transparent;box-shadow:none;cursor:default;}
+.cal-day.cal-today{border-color:var(--jb-accent-1);}
+.cal-day.cal-selected{background:linear-gradient(135deg,var(--jb-accent-1),var(--jb-accent-2));color:#fff;}
+.cal-day.cal-has-match::after{content:'';position:absolute;bottom:5px;width:5px;height:5px;border-radius:50%;background:var(--jb-accent-1);}
+.cal-day.cal-selected.cal-has-match::after{background:#fff;}
+.cal-daynum{line-height:1;}
+.cal-icons{font-size:9px;margin-top:2px;line-height:1;}
+
+.jb-collapse{margin-bottom:14px;}
+.jb-collapse-summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;font-size:18px;font-weight:700;color:var(--jb-text);padding:4px 2px 8px;border-bottom:2px solid color-mix(in srgb,var(--jb-accent-1) 25%,transparent);}
+.jb-collapse-summary::-webkit-details-marker{display:none;}
+.jb-collapse-summary .chevron{transition:transform 200ms ease;color:var(--jb-accent-1);font-size:15px;}
+.jb-collapse[open] .chevron{transform:rotate(180deg);}
+.jb-collapse-body{padding-top:10px;}
+.jb-collapse-count{font-size:14px;font-weight:600;color:var(--jb-text-2);margin-left:6px;}
+
+.empty-state{text-align:center;padding:30px 16px;color:var(--jb-text-2);font-size:16px;}
+.skeleton{background:linear-gradient(90deg,color-mix(in srgb,var(--jb-accent-1) 8%,var(--jb-surface)) 25%,color-mix(in srgb,var(--jb-accent-1) 15%,var(--jb-surface)) 50%,color-mix(in srgb,var(--jb-accent-1) 8%,var(--jb-surface)) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:12px;height:70px;margin-bottom:12px;}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:50;align-items:flex-end;justify-content:center;}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--jb-surface);border-radius:20px 20px 0 0;padding:20px 18px 28px;width:100%;max-width:640px;animation:jbFadeSlideIn 300ms ease-out;}
+.modal h3{margin:0 0 12px;font-size:19px;}
+.modal-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid color-mix(in srgb,var(--jb-accent-1) 15%,transparent);font-size:16px;}
+.modal-row:last-child{border-bottom:none;}
+.jb-btn-sm{background:linear-gradient(135deg,var(--jb-accent-1),var(--jb-accent-2));border:none;color:#fff;padding:7px 14px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;}
+
+footer{text-align:center;font-size:14px;color:var(--jb-text-2);padding:26px 16px 10px;opacity:0.7;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="logo">⚽ JB's Sports</div>
+    <div class="header-icons">
+      <button class="icon-btn" id="btnRefresh" title="Actualizar">🔄</button>
+      <button class="icon-btn" id="btnSettings" title="Ajustes">⚙️</button>
+    </div>
+  </div>
+  <div class="theme-picker" id="themePicker">
+    <div class="theme-dot" data-t="mint"></div>
+    <div class="theme-dot" data-t="ocean"></div>
+    <div class="theme-dot" data-t="sage"></div>
+    <div class="theme-dot" data-t="teal"></div>
+    <div class="theme-dot" data-t="coral"></div>
+    <div class="theme-dot" data-t="lavanda"></div>
+    <div class="theme-dot" data-t="noche">🌙</div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" data-view="inicio">Inicio</button>
+    <button class="tab-btn" data-view="explorar">Explorar</button>
+    <button class="tab-btn" data-view="calendario">📅</button>
+  </div>
+</header>
+
+<main>
+  <!-- INICIO -->
+  <section class="view active" id="view-inicio">
+    <h2 class="section-title">Tus favoritos</h2>
+    <div id="proximosCards"><div class="skeleton"></div><div class="skeleton"></div></div>
+
+    <h2 class="section-title">📈 Últimos resultados</h2>
+    <div id="lastResultsCards"><div class="skeleton"></div></div>
+
+    <div class="standings-wrapper" style="display:none;">
+      <h2 class="section-title" id="standingsTitle">📊 Top 5 LaLiga</h2>
+      <div id="standingsCards"></div>
+    </div>
+
+    <h2 class="section-title">LaLiga y ACB</h2>
+    <div id="ligaCards"><div class="skeleton"></div><div class="skeleton"></div></div>
+
+    <h2 class="section-title">Noticias para ti</h2>
+    <div class="jb-card" id="newsInicio"><div class="skeleton"></div><div class="skeleton"></div></div>
+  </section>
+
+  <!-- EXPLORAR -->
+  <section class="view" id="view-explorar">
+    <div class="subtabs" id="explorarSubtabs">
+      <button class="subtab-btn active" data-sub="futbolue">⚽ Fútbol Europa</button>
+      <button class="subtab-btn" data-sub="tablas">📊 Tablas</button>
+      <button class="subtab-btn" data-sub="goleadores">🥅 Goleadores</button>
+      <button class="subtab-btn" data-sub="ufc">🥊 UFC</button>
+      <button class="subtab-btn" data-sub="todas">📰 Noticias</button>
+    </div>
+    <div id="explorarContent"><div class="skeleton"></div><div class="skeleton"></div></div>
+  </section>
+
+  <section class="view" id="view-calendario">
+    <div id="calendarContent"><div class="skeleton"></div></div>
+  </section>
+
+  <footer>✨ JB Design System v2</footer>
+</main>
+
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <h3>Ajustes</h3>
+    <div class="modal-row"><span>Caché de datos</span><button class="jb-btn-sm" id="btnClearCache">Limpiar</button></div>
+    <div class="modal-row"><span>Aviso 1h antes del partido</span><button class="jb-btn-sm" id="btnEnableNotif">Activar</button></div>
+    <div class="modal-row"><span>Equipos favoritos</span><span style="color:var(--jb-text-2);font-size:15px;">Real Madrid (fútbol y baloncesto)</span></div>
+    <div class="modal-row"><span>Tenistas seguidos</span><span style="color:var(--jb-text-2);font-size:15px;">Alcaraz, Jódar</span></div>
+    <div class="modal-row"><span>Fuente de datos</span><span style="color:var(--jb-text-2);font-size:15px;">TheSportsDB</span></div>
+    <div style="padding:12px 0 4px;border-bottom:1px solid color-mix(in srgb,var(--jb-accent-1) 15%,transparent);">
+      <div style="font-size:16px;margin-bottom:6px;">URL de tu Cloudflare Worker <span style="color:var(--jb-text-2);font-size:14px;">(opcional, clasificación completa de LaLiga)</span></div>
+      <input type="text" id="fdTokenInput" placeholder="https://tu-worker.workers.dev" style="width:100%;padding:10px;border-radius:10px;border:1.5px solid color-mix(in srgb,var(--jb-accent-1) 30%,transparent);background:var(--jb-surface);color:var(--jb-text);font-size:16px;box-sizing:border-box;">
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="jb-btn-sm" id="btnSaveFdToken">Guardar</button>
+      </div>
+    </div>
+    <div id="fdErrorRow" style="display:none;padding:10px 0;border-bottom:1px solid color-mix(in srgb,var(--jb-accent-1) 15%,transparent);font-size:12px;color:var(--jb-text-2);">
+      ⚠️ Football-data.org no respondió, usando TheSportsDB: <span id="fdErrorText"></span>
+    </div>
+    <button class="jb-btn-sm" style="width:100%;margin-top:14px;padding:10px;" id="btnCloseSettings">Cerrar</button>
+  </div>
+</div>
+
+<script>
+/* ============ CONFIG ============ */
+const TSDB = 'https://www.thesportsdb.com/api/v1/json/3';
+const CACHE_TTL = { teams: 24*60*60*1000, events: 20*60*1000, players: 24*60*60*1000 };
+
+// IDs oficiales y estables de TheSportsDB (evitan depender de búsquedas por nombre,
+// que podían coger la liga equivocada -ej. "Primera División" existe en varios países-)
+const TEAM_ID = { realMadridFutbol: 133738, realMadridBaloncesto: 135092 };
+const LEAGUE_ID = { laliga: 4335, premier: 4328, serieA: 4332, bundesliga: 4331, champions: 4480, acb: 4408, ufc: 4443 };
+// Códigos de football-data.org (vía Worker) — solo cubre fútbol de estas 5 competiciones
+const FD_CODE = { laliga: 'PD', premier: 'PL', serieA: 'SA', bundesliga: 'BL1', champions: 'CL' };
+const FD_TEAM_REAL_MADRID = 86;
+
+/* ============ CACHE HELPERS ============ */
+function cacheGet(key, ttl){
+  try{
+    const raw = localStorage.getItem('jbsports_'+key);
+    if(!raw) return null;
+    const obj = JSON.parse(raw);
+    if(Date.now() - obj.t > ttl) return null;
+    return obj.v;
+  }catch(e){ return null; }
+}
+function cacheSet(key, value){
+  try{ localStorage.setItem('jbsports_'+key, JSON.stringify({t:Date.now(), v:value})); }catch(e){}
+}
+function clearAllCache(){
+  const preserve = ['jbsports_theme', 'jbsports_worker_url'];
+  Object.keys(localStorage)
+    .filter(k => k.startsWith('jbsports_') && !preserve.includes(k))
+    .forEach(k => localStorage.removeItem(k));
+}
+
+/* ============ FETCH HELPERS ============ */
+function fetchWithTimeout(url, ms, headers){
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  return fetch(url, { signal: controller.signal, headers: headers || {} }).finally(() => clearTimeout(timer));
+}
+// Cola simple: espacia las llamadas a TheSportsDB para no chocar con el límite
+// de velocidad de la clave gratuita compartida (evita que peticiones se bloqueen).
+let _tsdbChain = Promise.resolve();
+async function fetchJSON(url){
+  _tsdbChain = _tsdbChain.then(() => new Promise(r => setTimeout(r, 300)));
+  await _tsdbChain;
+  const res = await fetchWithTimeout(url, 10000);
+  if(!res.ok) throw new Error('HTTP '+res.status);
+  return res.json();
+}
+/* ============ SPORTSDB LOOKUPS (con caché) ============ */
+async function getNextEvents(teamId){
+  const cacheKey = 'next_'+teamId;
+  const cached = cacheGet(cacheKey, CACHE_TTL.events);
+  if(cached !== null) return cached;
+  try{
+    const data = await fetchJSON(`${TSDB}/eventsnext.php?id=${teamId}`);
+    const evs = data.events || [];
+    cacheSet(cacheKey, evs);
+    return evs;
+  }catch(e){ return []; }
+}
+async function getLastResults(teamId){
+  const cacheKey = 'last_'+teamId;
+  const cached = cacheGet(cacheKey, CACHE_TTL.events);
+  if(cached !== null) return cached;
+  try{
+    const data = await fetchJSON(`${TSDB}/eventslast.php?id=${teamId}`);
+    const evs = data.results || [];
+    cacheSet(cacheKey, evs);
+    return evs;
+  }catch(e){ return []; }
+}
+async function findPlayer(name){
+  const cacheKey = 'player_'+name;
+  const cached = cacheGet(cacheKey, CACHE_TTL.players);
+  if(cached) return cached;
+  try{
+    const data = await fetchJSON(`${TSDB}/searchplayers.php?p=${encodeURIComponent(name)}`);
+    const p = (data.player && data.player[0]) || null;
+    cacheSet(cacheKey, p);
+    return p;
+  }catch(e){ return null; }
+}
+// Clasificación de una liga (lookuptable.php), disponible para las grandes ligas de fútbol
+function logFdError(msg){
+  try{ localStorage.setItem('jbsports_fd_lasterror', msg + ' · ' + new Date().toLocaleTimeString('es-ES')); }catch(e){}
+}
+// Clasificación completa vía football-data.org (si hay token); si falla, cae a TheSportsDB (Top 5)
+function getWorkerUrl(){ return (localStorage.getItem('jbsports_worker_url') || '').trim(); }
+function setWorkerUrl(u){ localStorage.setItem('jbsports_worker_url', u.trim()); }
+// Llamada genérica a tu Worker de Cloudflare (bordea el bloqueo CORS de football-data.org)
+async function fdWorkerFetch(path, cacheKey, ttl){
+  const workerUrl = getWorkerUrl();
+  if(!workerUrl) return null;
+  const cached = cacheGet(cacheKey, ttl);
+  if(cached !== null) return cached;
+  try{
+    const res = await fetchWithTimeout(`${workerUrl}?path=${encodeURIComponent(path)}`, 8000);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    cacheSet(cacheKey, data);
+    return data;
+  }catch(e){ logFdError('Worker: '+e.message); return null; }
+}
+function fdMatchShape(m){
+  return {
+    strHomeTeam: m.homeTeam?.name || m.homeTeam?.shortName || '',
+    strAwayTeam: m.awayTeam?.name || m.awayTeam?.shortName || '',
+    strHomeTeamBadge: m.homeTeam?.crest || '',
+    strAwayTeamBadge: m.awayTeam?.crest || '',
+    strTimestamp: m.utcDate ? m.utcDate.replace('Z','').replace('T',' ') : '',
+    strLeague: m.competition?.name || '',
+    strVenue: m.venue || '',
+    intHomeScore: m.score?.fullTime?.home,
+    intAwayScore: m.score?.fullTime?.away,
+    idHomeTeam: m.homeTeam?.id,
+    idAwayTeam: m.awayTeam?.id,
+    dateEvent: m.utcDate ? m.utcDate.slice(0,10) : '',
+    strTime: m.utcDate ? m.utcDate.slice(11,19) : '',
+    idEvent: m.id,
+    strStatus: m.status || '',
+    intMinute: m.minute ?? null,
+    intMatchday: m.matchday ?? null
+  };
+}
+function fdDateStr(offsetDays){
+  return new Date(Date.now()+offsetDays*86400000).toISOString().slice(0,10);
+}
+async function getFdCompetitionMatches(code, from, to){
+  const data = await fdWorkerFetch(`/v4/competitions/${code}/matches?dateFrom=${from}&dateTo=${to}`, 'fdmatches_'+code+'_'+from+'_'+to, CACHE_TTL.events);
+  if(!data || !data.matches) return null;
+  return data.matches.map(fdMatchShape);
+}
+async function getFdTeamMatches(teamId, from, to){
+  const data = await fdWorkerFetch(`/v4/teams/${teamId}/matches?dateFrom=${from}&dateTo=${to}`, 'fdteam_'+teamId+'_'+from+'_'+to, CACHE_TTL.events);
+  if(!data || !data.matches) return null;
+  return data.matches.map(fdMatchShape);
+}
+// Próximos partidos de una liga: football-data.org (jornada completa) si hay Worker,
+// si no, respaldo con TheSportsDB
+// Agrupa por jornada y elige cuál mostrar: la que esté en juego, o la que haya
+// acabado hace menos de 10h; si no, la próxima. Incluye partidos ya jugados
+// (con resultado) de esa misma jornada, no solo los pendientes.
+function pickCurrentMatchday(matches){
+  const grouped = {};
+  matches.forEach(m => {
+    if(m.intMatchday == null) return;
+    (grouped[m.intMatchday] = grouped[m.intMatchday] || []).push(m);
+  });
+  const days = Object.keys(grouped).map(Number).sort((a,b) => a-b);
+  const now = Date.now();
+  const GRACE_MS = 10*60*60*1000; // 10h de margen tras el último partido
+  for(const day of days){
+    const group = grouped[day];
+    const lastEnd = Math.max(...group.map(m => {
+      const d = getKickoffDate(m);
+      return d ? d.getTime() + 2*3600000 : 0; // estimamos ~2h de partido
+    }));
+    if(now < lastEnd + GRACE_MS){
+      return group.sort((a,b) => (a.dateEvent+(a.strTime||'')).localeCompare(b.dateEvent+(b.strTime||'')));
+    }
+  }
+  if(days.length) return grouped[days[days.length-1]];
+  return [];
+}
+async function getBestLeagueUpcoming(fdCode, tsdbLeagueId, yearOnly){
+  if(fdCode){
+    // Ventana amplia hacia atrás (-4 días) para poder incluir partidos ya jugados
+    // de la jornada en curso, y hacia adelante para tener la próxima si ya acabó
+    const matches = await getFdCompetitionMatches(fdCode, fdDateStr(-4), fdDateStr(15));
+    if(matches && matches.length){
+      const round = pickCurrentMatchday(matches);
+      if(round.length) return round;
+    }
+  }
+  return getLeagueUpcoming(tsdbLeagueId, yearOnly);
+}
+// Últimos resultados de una liga vía football-data.org (si hay Worker)
+async function getBestLeagueRecent(fdCode){
+  if(!fdCode) return [];
+  const matches = await getFdCompetitionMatches(fdCode, fdDateStr(-21), fdDateStr(0));
+  if(!matches) return [];
+  return pastEvents(matches);
+}
+// Próximos partidos de un equipo (todas competiciones): football-data.org si hay Worker
+async function getBestTeamUpcoming(fdTeamId, tsdbTeamId, tsdbLeagueIds){
+  if(fdTeamId){
+    const matches = await getFdTeamMatches(fdTeamId, fdDateStr(0), fdDateStr(30));
+    if(matches){
+      const upcoming = futureEvents(matches);
+      if(upcoming.length) return upcoming;
+    }
+  }
+  return getTeamUpcoming(tsdbTeamId, tsdbLeagueIds);
+}
+// Últimos resultados de un equipo (todas competiciones): football-data.org si hay Worker
+async function getBestTeamRecent(fdTeamId, tsdbTeamId, tsdbLeagueIds){
+  if(fdTeamId){
+    const matches = await getFdTeamMatches(fdTeamId, fdDateStr(-21), fdDateStr(0));
+    if(matches){
+      const recent = pastEvents(matches);
+      if(recent.length) return recent;
+    }
+  }
+  return getTeamRecent(tsdbTeamId, tsdbLeagueIds);
+}
+// Clasificación completa vía tu Cloudflare Worker (bordea el bloqueo CORS de football-data.org
+// haciendo la petición desde el servidor de Cloudflare, no desde el navegador)
+const FD_LEAGUES = [
+  { label:'LaLiga', fd:FD_CODE.laliga, id:LEAGUE_ID.laliga },
+  { label:'Premier League', fd:FD_CODE.premier, id:LEAGUE_ID.premier },
+  { label:'Serie A', fd:FD_CODE.serieA, id:LEAGUE_ID.serieA },
+  { label:'Bundesliga', fd:FD_CODE.bundesliga, id:LEAGUE_ID.bundesliga },
+  { label:'Champions League', fd:FD_CODE.champions, id:LEAGUE_ID.champions },
+];
+async function getFdTopScorers(code){
+  const data = await fdWorkerFetch(`/v4/competitions/${code}/scorers?limit=10`, 'fdscorers_'+code, CACHE_TTL.teams);
+  if(!data || !data.scorers) return null;
+  return data.scorers.map(s => ({
+    name: s.player?.name || '',
+    team: s.team?.shortName || s.team?.name || '',
+    teamCrest: s.team?.crest || '',
+    goals: s.goals
+  }));
+}
+function scorersTableHTML(scorers){
+  if(!scorers || !scorers.length) return `<div class="jb-card"><div class="empty-state">Sin datos de goleadores disponibles</div></div>`;
+  const rows = scorers.map((s,i) => `<div style="display:flex;align-items:center;gap:8px;padding:7px 4px;">
+    <span style="width:20px;font-size:15px;color:var(--jb-text-2);">${i+1}</span>
+    <img src="${s.teamCrest}" style="width:20px;height:20px;object-fit:contain;" onerror="this.style.display='none'">
+    <span style="flex:1;font-size:15px;">${s.name}</span>
+    <span style="font-size:12px;color:var(--jb-text-2);">${s.team}</span>
+    <span style="font-size:15px;font-weight:700;width:34px;text-align:center;">⚽${s.goals}</span>
+  </div>`).join('');
+  return `<div class="jb-card">${rows}</div>`;
+}
+async function getFullLeagueTable(fdCompetitionCode, tsdbLeagueId){
+  const workerUrl = getWorkerUrl();
+  if(workerUrl){
+    const cacheKey = 'fdtable_'+fdCompetitionCode;
+    const cached = cacheGet(cacheKey, CACHE_TTL.teams);
+    if(cached !== null && cached.length) return { table: cached, source: 'fd' };
+    try{
+      const path = encodeURIComponent(`/v4/competitions/${fdCompetitionCode}/standings`);
+      const res = await fetchWithTimeout(`${workerUrl}?path=${path}`, 8000);
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const data = await res.json();
+      const rows = data.standings?.find(s => s.type === 'TOTAL')?.table || [];
+      const table = rows.map(r => ({ intRank:r.position, strTeam:r.team?.shortName||r.team?.name||'', strBadge:r.team?.crest||'', idTeam:r.team?.id, intPlayed:r.playedGames, intPoints:r.points, strForm:(r.form||'').replace(/,/g,'') }));
+      // football-data.org no da "forma reciente" en el plan gratis (viene vacía).
+      // La recuperamos de TheSportsDB (que sí la tiene, aunque solo para su Top 5) y la mezclamos.
+      if(table.length && !table[0].strForm){
+        const tsdbTable = await getLeagueTable(tsdbLeagueId);
+        tsdbTable.forEach(tRow => {
+          const match = table.find(r => r.strTeam && tRow.strTeam &&
+            (r.strTeam.toLowerCase().includes(tRow.strTeam.toLowerCase()) || tRow.strTeam.toLowerCase().includes(r.strTeam.toLowerCase())));
+          if(match && tRow.strForm) match.strForm = tRow.strForm;
+        });
+      }
+      if(table.length){ cacheSet(cacheKey, table); return { table, source: 'fd' }; }
+    }catch(e){ logFdError('Clasificación vía Worker: '+e.message); }
+  }
+  const table = await getLeagueTable(tsdbLeagueId);
+  return { table, source: 'tsdb' };
+}
+async function getLeagueTable(leagueId){
+  const cacheKey = 'table_'+leagueId;
+  const cached = cacheGet(cacheKey, CACHE_TTL.teams); // caché larga: la tabla no cambia cada minuto
+  if(cached !== null) return cached;
+  try{
+    const data = await fetchJSON(`${TSDB}/lookuptable.php?l=${leagueId}`);
+    const table = data.table || [];
+    cacheSet(cacheKey, table);
+    return table;
+  }catch(e){ return []; }
+}
+async function getLeagueNextEvents(leagueId){
+  if(!leagueId) return [];
+  const cacheKey = 'league_next_'+leagueId;
+  const cached = cacheGet(cacheKey, CACHE_TTL.events);
+  if(cached) return cached;
+  try{
+    const data = await fetchJSON(`${TSDB}/eventsnextleague.php?id=${leagueId}`);
+    const evs = data.events || [];
+    cacheSet(cacheKey, evs);
+    return evs;
+  }catch(e){ return []; }
+}
+// "YYYY-YYYY+1" para fútbol/baloncesto, o solo "YYYY" para UFC
+// eventsseason.php tiene límite gratuito de 15 (frente al límite de 1 de eventsnextleague.php)
+async function getLeagueSeasonEvents(leagueId, season){
+  const cacheKey = 'season_'+leagueId+'_'+season;
+  const cached = cacheGet(cacheKey, CACHE_TTL.events);
+  if(cached !== null) return cached;
+  try{
+    const data = await fetchJSON(`${TSDB}/eventsseason.php?id=${leagueId}&s=${season}`);
+    const evs = data.events || [];
+    cacheSet(cacheKey, evs);
+    return evs;
+  }catch(e){ return []; }
+}
+function futureEvents(evs){
+  const todayStr = new Date().toISOString().slice(0,10);
+  return evs
+    .filter(e => e.dateEvent && e.dateEvent >= todayStr)
+    .sort((a,b) => (a.dateEvent+(a.strTime||'')).localeCompare(b.dateEvent+(b.strTime||'')));
+}
+function pastEvents(evs){
+  const todayStr = new Date().toISOString().slice(0,10);
+  return evs
+    .filter(e => e.dateEvent && e.dateEvent < todayStr && e.intHomeScore != null && e.intAwayScore != null)
+    .sort((a,b) => (b.dateEvent+(b.strTime||'')).localeCompare(a.dateEvent+(a.strTime||'')));
+}
+// Trae TODOS los partidos de un equipo en varias competiciones/temporadas de una vez
+// (reutilizable tanto para "próximos" como para "últimos resultados", sin llamadas extra)
+async function getTeamSeasonEvents(teamId, leagueIds){
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth()+1;
+  const seasons = m >= 7 ? [`${y}-${y+1}`, `${y-1}-${y}`] : [`${y-1}-${y}`, `${y}-${y+1}`];
+  const all = [];
+  for(const season of seasons){
+    const results = await Promise.all(leagueIds.map(id => getLeagueSeasonEvents(id, season)));
+    all.push(...results.flat().filter(e => String(e.idHomeTeam) === String(teamId) || String(e.idAwayTeam) === String(teamId)));
+  }
+  return all;
+}
+// Próximos partidos de una liga: intenta con eventsseason (hasta 15), si no hay
+// nada futuro (temporada ya muy avanzada) cae al respaldo garantizado de 1 partido
+async function getLeagueUpcoming(leagueId, yearOnly){
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth()+1;
+  // Probamos la temporada que creemos correcta y, por si la base de datos la
+  // etiqueta distinto, también la adyacente, antes de rendirnos al respaldo de 1 partido
+  const seasonsToTry = yearOnly
+    ? [String(y)]
+    : (m >= 7 ? [`${y}-${y+1}`, `${y-1}-${y}`] : [`${y-1}-${y}`, `${y}-${y+1}`]);
+  for(const season of seasonsToTry){
+    const evs = await getLeagueSeasonEvents(leagueId, season);
+    const upcoming = futureEvents(evs);
+    if(upcoming.length) return upcoming;
+  }
+  return getLeagueNextEvents(leagueId);
+}
+// Próximos partidos de un equipo en varias competiciones (ej. Real Madrid en LaLiga + Champions)
+async function getTeamUpcoming(teamId, leagueIds){
+  const all = await getTeamSeasonEvents(teamId, leagueIds);
+  const upcoming = futureEvents(all);
+  if(upcoming.length) return upcoming;
+  return getNextEvents(teamId);
+}
+async function getTeamRecent(teamId, leagueIds){
+  // Datos de temporada ya cargados para "próximos partidos" (mismo pool de 15, mirando atrás)
+  const all = await getTeamSeasonEvents(teamId, leagueIds);
+  const recent = pastEvents(all);
+  if(recent.length) return recent;
+  // Respaldo garantizado, aunque limitado a 1 resultado (límite real de la API gratuita)
+  return getLastResults(teamId);
+}
+
+/* ============ RENDER: PARTIDOS ============ */
+function getKickoffDate(ev){
+  if(ev && ev.strTimestamp) return new Date(ev.strTimestamp.replace(' ', 'T') + 'Z');
+  if(ev && ev.dateEvent) return new Date(ev.dateEvent + 'T' + (ev.strTime || '00:00:00') + 'Z');
+  return null;
+}
+function countdownInfo(d){
+  if(!d || isNaN(d)) return null;
+  const diffMs = d.getTime() - Date.now();
+  const diffH = diffMs / 3600000;
+  if(diffMs <= -3*3600000) return {text:'Finalizado', cls:'chip-past'};
+  if(diffMs <= 0) return {text:'🔴 En juego', cls:'chip-live'};
+  if(diffH < 24){
+    const h = Math.floor(diffH), m = Math.floor((diffH-h)*60);
+    return {text:`⏳ En ${h>0?h+'h ':''}${m}m`, cls:'chip-soon'};
+  }
+  if(diffH < 48) return {text:'📅 Mañana', cls:'chip-normal'};
+  return {text:`📅 En ${Math.floor(diffH/24)} días`, cls:'chip-normal'};
+}
+const LIVE_STATUSES = ['IN_PLAY', 'PAUSED', 'LIVE'];
+function countdownChipHTML(ev){
+  if(ev && LIVE_STATUSES.includes(ev.strStatus)){
+    return `<span class="countdown-chip chip-live" data-live-id="${ev.idEvent||''}">🔴 EN VIVO${ev.intMinute ? ' · '+ev.intMinute+"'" : ''}</span>`;
+  }
+  const d = getKickoffDate(ev);
+  const info = countdownInfo(d);
+  if(!info) return '';
+  return `<span class="countdown-chip ${info.cls}" data-kickoff="${d.toISOString()}">${info.text}</span>`;
+}
+function refreshCountdownChips(){
+  document.querySelectorAll('.countdown-chip[data-kickoff]').forEach(el => {
+    const d = new Date(el.getAttribute('data-kickoff'));
+    const info = countdownInfo(d);
+    if(!info) return;
+    el.textContent = info.text;
+    el.className = 'countdown-chip ' + info.cls;
+  });
+}
+setInterval(refreshCountdownChips, 30000);
+
+// Si hay algún partido EN VIVO en la pantalla, refrescamos el marcador cada 60s
+let liveRefreshInterval = null;
+function checkForLiveMatches(){
+  const hasLive = !!document.querySelector('[data-live-id]');
+  if(hasLive && !liveRefreshInterval){
+    liveRefreshInterval = setInterval(() => {
+      if(!document.querySelector('[data-live-id]')){
+        clearInterval(liveRefreshInterval);
+        liveRefreshInterval = null;
+        return;
+      }
+      // Forzamos refresco solo de los datos de equipos favoritos (sin tocar caché de noticias/tablas)
+      Object.keys(localStorage).filter(k => k.startsWith('jbsports_fdteam_') || k.startsWith('jbsports_next_')).forEach(k => localStorage.removeItem(k));
+      if(document.querySelector('.tab-btn.active').dataset.view === 'inicio') loadInicio();
+    }, 60000);
+  } else if(!hasLive && liveRefreshInterval){
+    clearInterval(liveRefreshInterval);
+    liveRefreshInterval = null;
+  }
+}
+
+function jornadaLabel(evs){
+  const md = evs && evs[0] && evs[0].intMatchday;
+  return md ? ` · Jornada ${md}` : '';
+}
+function collapsibleSection(title, count, innerHtml, openByDefault){
+  return `<details class="jb-collapse" ${openByDefault ? 'open' : ''}>
+    <summary class="jb-collapse-summary"><span>${title}<span class="jb-collapse-count">${count}</span></span><span class="chevron">▾</span></summary>
+    <div class="jb-collapse-body">${innerHtml}</div>
+  </details>`;
+}
+function formatDate(ev){
+  // TheSportsDB entrega strTimestamp en UTC real. Lo priorizamos y dejamos
+  // que el navegador lo convierta automáticamente a la hora local del usuario.
+  let d = null;
+  if(ev && ev.strTimestamp){
+    d = new Date(ev.strTimestamp.replace(' ', 'T') + 'Z');
+  } else if(ev && ev.dateEvent){
+    // Fallback: dateEvent + strTime vienen en horario UK, lo tratamos como UTC aproximado
+    d = new Date(ev.dateEvent + 'T' + (ev.strTime || '00:00:00') + 'Z');
+  }
+  if(!d || isNaN(d)) return (ev && ev.dateEvent) ? ev.dateEvent : 'Fecha por confirmar';
+  return d.toLocaleDateString('es-ES', {day:'2-digit', month:'short'}) + ' · ' + d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+}
+function formDotsHTML(strForm){
+  if(!strForm) return '';
+  const colors = { W:'#2ECC71', D:'#B0B8B4', L:'#FF5C5C' };
+  return `<span style="display:inline-flex;gap:2px;margin-left:6px;">${strForm.split('').slice(-5).map(c =>
+    `<span style="width:7px;height:7px;border-radius:50%;background:${colors[c]||'#ccc'};display:inline-block;"></span>`
+  ).join('')}</span>`;
+}
+function standingsTableHTML(table, highlightTeamId){
+  if(!table.length) return '';
+  const rows = table.map(row => {
+    const isHighlight = String(row.idTeam) === String(highlightTeamId);
+    const badge = row.strBadge || row.strTeamBadge || '';
+    return `<div style="display:flex;align-items:center;gap:8px;padding:7px 4px;${isHighlight ? 'background:color-mix(in srgb,var(--jb-accent-1) 12%,transparent);border-radius:8px;font-weight:700;' : ''}">
+      <span style="width:20px;font-size:15px;color:var(--jb-text-2);">${row.intRank}</span>
+      <img src="${badge}" style="width:20px;height:20px;object-fit:contain;" onerror="this.style.display='none'">
+      <span style="flex:1;font-size:15px;display:flex;align-items:center;">${row.strTeam || ''}${formDotsHTML(row.strForm)}</span>
+      <span style="font-size:14px;color:var(--jb-text-2);width:26px;text-align:center;">${row.intPlayed}J</span>
+      <span style="font-size:15px;font-weight:700;width:28px;text-align:center;">${row.intPoints}</span>
+    </div>`;
+  }).join('');
+  return `<div class="jb-card">${rows}</div>`;
+}
+function matchCardHTML(ev, favLabel, watermarkBadge){
+  if(!ev){
+    return `<div class="jb-card"><div class="empty-state">${favLabel ? favLabel+': ' : ''}sin próximo partido confirmado por ahora ⏳</div></div>`;
+  }
+  const isLive = LIVE_STATUSES.includes(ev.strStatus);
+  const isFinished = ev.strStatus === 'FINISHED';
+  let midContent;
+  if((isLive || isFinished) && ev.intHomeScore != null){
+    const scoreStyle = isLive ? 'color:#FF3B5C;' : '';
+    const scoreClass = isLive ? 'live-score' : '';
+    midContent = `<span class="${scoreClass}" style="font-size:22px;font-weight:800;${scoreStyle}">${ev.intHomeScore} - ${ev.intAwayScore}</span>${isLive ? '' : '<br>'+formatDate(ev)}`;
+  } else {
+    midContent = `VS<br>${formatDate(ev)}`;
+  }
+  const watermark = (favLabel && watermarkBadge)
+    ? `<img src="${watermarkBadge}" class="card-watermark" onerror="this.style.display='none'">`
+    : '';
+  return `<div class="jb-card" style="position:relative;overflow:hidden;" data-match-id="${ev.idEvent||''}">
+    ${watermark}
+    <div style="position:relative;z-index:1;">
+    ${favLabel ? `<div class="badge-fav">${favLabel.replace(/([\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}])/gu, '<span style="font-size:16px;vertical-align:-2px;">$1</span>')}</div>` : ''}
+    <div class="match-teams">
+      <div style="text-align:center;">
+        <img class="match-badge" src="${ev.strHomeTeamBadge||''}" onerror="this.style.display='none'">
+        <div class="match-team-name">${ev.strHomeTeam||''}</div>
+      </div>
+      <div class="match-mid">${midContent}</div>
+      <div style="text-align:center;">
+        <img class="match-badge" src="${ev.strAwayTeamBadge||''}" onerror="this.style.display='none'">
+        <div class="match-team-name">${ev.strAwayTeam||''}</div>
+      </div>
+    </div>
+    <div class="match-meta"><span>${ev.strLeague||''}</span><span>${ev.strVenue||''}</span></div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;">${countdownChipHTML(ev)}${icsButtonHTML(ev)}</div>
+    </div>
+  </div>`;
+}
+function resultRowHTML(ev, teamIds){
+  const hs = ev.intHomeScore, as = ev.intAwayScore;
+  if(hs == null || as == null) return '';
+  const ids = (Array.isArray(teamIds) ? teamIds : [teamIds]).map(String);
+  const isHome = ids.includes(String(ev.idHomeTeam));
+  const gf = isHome ? hs : as, ga = isHome ? as : hs;
+  const outcome = gf > ga ? {l:'G', c:'#2ECC71'} : gf < ga ? {l:'P', c:'#FF5C5C'} : {l:'E', c:'#B0B8B4'};
+  return `<div style="display:flex;align-items:center;gap:8px;padding:6px 2px;">
+    <span style="width:22px;height:22px;border-radius:50%;background:${outcome.c};color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${outcome.l}</span>
+    <span style="flex:1;font-size:14px;">${ev.strHomeTeam} <b>${hs}-${as}</b> ${ev.strAwayTeam}</span>
+    <span style="font-size:12px;color:var(--jb-text-2);">${(ev.dateEvent||'').slice(5)}</span>
+  </div>`;
+}
+async function getFdHeadToHead(matchId){
+  if(!matchId) return null;
+  const data = await fdWorkerFetch(`/v4/matches/${matchId}/head2head?limit=5`, 'fdh2h_'+matchId, CACHE_TTL.teams);
+  if(!data || !data.matches) return null;
+  return data.matches.map(fdMatchShape);
+}
+function h2hHTML(matches, teamId){
+  if(!matches || !matches.length) return '';
+  const rows = matches.slice(0,5).map(e => resultRowHTML(e, teamId)).join('');
+  if(!rows) return '';
+  return `<div class="jb-card"><div style="font-weight:700;font-size:14px;margin-bottom:4px;color:var(--jb-text-2);">🆚 Últimos enfrentamientos</div>${rows}</div>`;
+}
+function icsButtonHTML(ev){
+  const d = getKickoffDate(ev);
+  if(!d || isNaN(d)) return '';
+  const title = `${ev.strHomeTeam||ev.strEvent||''} vs ${ev.strAwayTeam||''}`.replace(/ vs $/,'');
+  const payload = JSON.stringify({ t: title, s: d.toISOString(), l: ev.strLeague||ev.strSport||'', v: ev.strVenue||'' });
+  return `<button class="ics-btn" onclick='addToCalendar(${payload})' title="Añadir al calendario">📅</button>`;
+}
+function addToCalendar(data){
+  const start = new Date(data.s);
+  const end = new Date(start.getTime() + 2*3600000);
+  const fmt = d => d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT',
+    `UID:${Date.now()}@jbsports`,
+    `DTSTAMP:${fmt(new Date())}`,
+    `DTSTART:${fmt(start)}`,
+    `DTEND:${fmt(end)}`,
+    `SUMMARY:${data.t}`,
+    `LOCATION:${data.v}`,
+    `DESCRIPTION:${data.l}`,
+    'BEGIN:VALARM','TRIGGER:-PT1H','ACTION:DISPLAY','DESCRIPTION:Reminder','END:VALARM',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], { type:'text/calendar' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'partido.ics';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 3000);
+}
+function playerCardHTML(p, name){
+  if(!p){
+    return `<div class="jb-card player-card"><div>
+      <div class="player-name">${name}</div>
+      <div class="player-sub">Sin datos disponibles en este momento</div>
+    </div></div>`;
+  }
+  return `<div class="jb-card player-card">
+    <img class="player-photo" src="${p.strThumb||p.strCutout||''}" onerror="this.style.display='none'">
+    <div>
+      <div class="player-name">${p.strPlayer||name}</div>
+      <div class="player-sub">${p.strNationality||''}${p.strSport?' · '+p.strSport:''}</div>
+      <a class="player-link" href="https://www.google.com/search?q=${encodeURIComponent((p.strPlayer||name)+' ATP ranking')}" target="_blank">Ver ranking y últimos resultados →</a>
+    </div>
+  </div>`;
+}
+
+/* ============ CARGA: INICIO ============ */
+function pickTeamBadge(ev, nameMatch){
+  if(!ev) return '';
+  if(ev.strHomeTeam && ev.strHomeTeam.includes(nameMatch)) return ev.strHomeTeamBadge;
+  if(ev.strAwayTeam && ev.strAwayTeam.includes(nameMatch)) return ev.strAwayTeamBadge;
+  return '';
+}
+async function loadInicio(){
+  const cardsEl = document.getElementById('proximosCards');
+  cardsEl.innerHTML = '<div class="skeleton"></div><div class="skeleton"></div>';
+
+  const [nextFutbolList, nextBaloncestoList] = await Promise.all([
+    getBestTeamUpcoming(FD_TEAM_REAL_MADRID, TEAM_ID.realMadridFutbol, [LEAGUE_ID.laliga, LEAGUE_ID.champions]),
+    getTeamUpcoming(TEAM_ID.realMadridBaloncesto, [LEAGUE_ID.acb])
+  ]);
+  const [lastFutbol, lastBaloncesto] = await Promise.all([
+    getBestTeamRecent(FD_TEAM_REAL_MADRID, TEAM_ID.realMadridFutbol, [LEAGUE_ID.laliga, LEAGUE_ID.champions]),
+    getTeamRecent(TEAM_ID.realMadridBaloncesto, [LEAGUE_ID.acb])
+  ]);
+  const [alcaraz, jodar] = await Promise.all([
+    findPlayer('Carlos_Alcaraz'),
+    findPlayer('Rafael_Jodar')
+  ]);
+
+  // LaLiga y ACB: calendario general de la liga, no solo el Real Madrid
+  const [laLigaEvents, acbEvents, laLigaTableResult] = await Promise.all([
+    getBestLeagueUpcoming(FD_CODE.laliga, LEAGUE_ID.laliga, false),
+    getLeagueUpcoming(LEAGUE_ID.acb, false),
+    getFullLeagueTable('PD', LEAGUE_ID.laliga)
+  ]);
+  const laLigaTable = laLigaTableResult.table;
+
+  let html = '';
+  html += nextFutbolList.length
+    ? nextFutbolList.slice(0,3).map((e,i)=>matchCardHTML(e, i===0 ? 'Real Madrid ⚽' : null, pickTeamBadge(e,'Real Madrid'))).join('')
+    : matchCardHTML(null, 'Real Madrid ⚽');
+  html += nextBaloncestoList.length
+    ? nextBaloncestoList.slice(0,3).map((e,i)=>matchCardHTML(e, i===0 ? 'Real Madrid 🏀' : null, pickTeamBadge(e,'Real Madrid'))).join('')
+    : matchCardHTML(null, 'Real Madrid 🏀');
+  html += playerCardHTML(alcaraz, 'Carlos Alcaraz') + playerCardHTML(jodar, 'Rafael Jódar');
+
+  cardsEl.innerHTML = html;
+
+  if(nextFutbolList.length && localStorage.getItem('jbsports_notif_enabled') === '1'){
+    scheduleKickoffNotification(nextFutbolList[0]);
+  }
+
+  // Cara a cara: histórico contra el próximo rival (si el partido viene de football-data.org)
+  if(nextFutbolList.length && nextFutbolList[0].idEvent){
+    getFdHeadToHead(nextFutbolList[0].idEvent).then(matches => {
+      const h = h2hHTML(matches, FD_TEAM_REAL_MADRID);
+      if(h) cardsEl.insertAdjacentHTML('beforeend', h);
+    });
+  }
+
+  // Últimos resultados del Real Madrid (fútbol + baloncesto)
+  const lastResultsEl = document.getElementById('lastResultsCards');
+  if(lastResultsEl){
+    const futbolRows = lastFutbol.slice(0,5).map(e=>resultRowHTML(e, [TEAM_ID.realMadridFutbol, FD_TEAM_REAL_MADRID])).join('');
+    const basketRows = lastBaloncesto.slice(0,5).map(e=>resultRowHTML(e, TEAM_ID.realMadridBaloncesto)).join('');
+    lastResultsEl.innerHTML = (futbolRows || basketRows)
+      ? `<div class="jb-card">${futbolRows}${basketRows}</div>`
+      : `<div class="jb-card"><div class="empty-state">Sin resultados recientes disponibles</div></div>`;
+  }
+
+  // Clasificación de LaLiga, con el Real Madrid resaltado
+  const standingsEl = document.getElementById('standingsCards');
+  const standingsTitleEl = document.getElementById('standingsTitle');
+  if(standingsEl){
+    const wrapper = standingsEl.closest('.standings-wrapper');
+    if(laLigaTable.length){
+      standingsEl.innerHTML = standingsTableHTML(laLigaTable, TEAM_ID.realMadridFutbol);
+      if(standingsTitleEl) standingsTitleEl.textContent = laLigaTableResult.source === 'fd' ? '📊 Clasificación LaLiga completa' : '📊 Top 5 LaLiga';
+      if(wrapper) wrapper.style.display = '';
+    } else if(wrapper) wrapper.style.display = 'none';
+  }
+
+  // LaLiga y ACB en su propia sección, debajo
+  const ligaEl = document.getElementById('ligaCards');
+  const laLigaBody = laLigaEvents.length ? laLigaEvents.slice(0,10).map(e=>matchCardHTML(e)).join('') : `<div class="jb-card"><div class="empty-state">Sin partidos de LaLiga programados en los próximos días</div></div>`;
+  const acbBody = acbEvents.length ? acbEvents.slice(0,8).map(e=>matchCardHTML(e)).join('') : `<div class="jb-card"><div class="empty-state">La ACB no tiene partidos programados ahora mismo (revisa el calendario de temporada)</div></div>`;
+  ligaEl.innerHTML =
+    collapsibleSection('⚽ LaLiga' + jornadaLabel(laLigaEvents), laLigaEvents.length, laLigaBody, true) +
+    collapsibleSection('🏀 ACB', acbEvents.length, acbBody, true);
+
+  loadNewsInicio();
+  checkForLiveMatches();
+}
+
+/* ============ NOTICIAS: enlaces directos (sin fetch, 100% fiable) ============ */
+const NEWS_LINKS = {
+  realMadridFutbol: { label:'Real Madrid ⚽', marca:'https://www.marca.com/futbol/real-madrid.html', as:'https://as.com/realmadrid/', espn:'https://espndeportes.espn.com/futbol/liga/_/liga/esp.1' },
+  realMadridBaloncesto: { label:'Real Madrid 🏀', marca:'https://www.marca.com/baloncesto.html', as:'https://as.com/baloncesto/', espn:'https://espndeportes.espn.com/basquetbol/' },
+  tenis: { label:'Tenis (Alcaraz, Jódar) 🎾', marca:'https://www.marca.com/tenis.html', as:'https://as.com/tenis/', espn:'https://espndeportes.espn.com/tenis/' },
+  laliga: { label:'LaLiga ⚽', marca:'https://www.marca.com/futbol/primera-division.html', as:'https://as.com/futbol/primera/', espn:'https://espndeportes.espn.com/futbol/liga/_/liga/esp.1' },
+  acb: { label:'ACB 🏀', marca:'https://www.marca.com/baloncesto.html', as:'https://as.com/baloncesto/acb/', espn:'https://espndeportes.espn.com/basquetbol/' },
+  futbolEuropa: { label:'Fútbol Europa ⚽', marca:'https://www.marca.com/futbol/mas-futbol.html', as:'https://as.com/futbol/', espn:'https://espndeportes.espn.com/futbol/' },
+  ufc: { label:'UFC 🥊', marca:'https://www.marca.com/combates-ufc.html', as:'https://as.com/motor/', espn:'https://espndeportes.espn.com/mma/' },
+};
+function newsLinkCard(item){
+  return `<div class="jb-card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+    <div style="font-weight:700;font-size:16px;">${item.label}</div>
+    <div style="display:flex;gap:6px;">
+      <a class="jb-btn-sm" style="text-decoration:none;" href="${item.marca}" target="_blank">Marca</a>
+      <a class="jb-btn-sm" style="text-decoration:none;" href="${item.as}" target="_blank">AS</a>
+      <a class="jb-btn-sm" style="text-decoration:none;" href="${item.espn}" target="_blank">ESPN</a>
+    </div>
+  </div>`;
+}
+function loadNewsInicio(){
+  const el = document.getElementById('newsInicio');
+  el.innerHTML = [NEWS_LINKS.realMadridFutbol, NEWS_LINKS.realMadridBaloncesto, NEWS_LINKS.tenis].map(newsLinkCard).join('');
+}
+
+/* ============ CARGA: EXPLORAR ============ */
+let currentSub = 'futbolue';
+
+/* ============ CALENDARIO MENSUAL ============ */
+const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+let calState = { year: new Date().getFullYear(), month: new Date().getMonth() };
+let calMatches = [];
+let calSelectedDate = null;
+
+async function getTeamMonthMatches(fdTeamId, tsdbTeamId, tsdbLeagueIds, monthStart, monthEnd){
+  if(fdTeamId){
+    const matches = await getFdTeamMatches(fdTeamId, monthStart, monthEnd);
+    if(matches) return matches;
+  }
+  const all = await getTeamSeasonEvents(tsdbTeamId, tsdbLeagueIds);
+  return all.filter(e => e.dateEvent >= monthStart && e.dateEvent <= monthEnd);
+}
+
+async function loadCalendario(){
+  const el = document.getElementById('calendarContent');
+  el.innerHTML = '<div class="skeleton"></div>';
+  const y = calState.year, m = calState.month;
+  const monthStart = `${y}-${String(m+1).padStart(2,'0')}-01`;
+  const monthEnd = `${y}-${String(m+1).padStart(2,'0')}-${String(new Date(y,m+1,0).getDate()).padStart(2,'0')}`;
+
+  const [futbol, basket] = await Promise.all([
+    getTeamMonthMatches(FD_TEAM_REAL_MADRID, TEAM_ID.realMadridFutbol, [LEAGUE_ID.laliga, LEAGUE_ID.champions], monthStart, monthEnd),
+    getTeamMonthMatches(null, TEAM_ID.realMadridBaloncesto, [LEAGUE_ID.acb], monthStart, monthEnd)
+  ]);
+  calMatches = [
+    ...futbol.map(mt => ({...mt, sportIcon:'⚽'})),
+    ...basket.map(mt => ({...mt, sportIcon:'🏀'}))
+  ];
+  if(!calSelectedDate || calSelectedDate.slice(0,7) !== monthStart.slice(0,7)){
+    const todayStr = new Date().toISOString().slice(0,10);
+    calSelectedDate = calMatches.some(m=>m.dateEvent===todayStr) ? todayStr : (calMatches[0]?.dateEvent || null);
+  }
+  el.innerHTML = calendarGridHTML(y, m);
+  renderCalDayDetail();
+}
+
+function calendarGridHTML(y, m){
+  const firstDay = new Date(y, m, 1);
+  const startWeekday = (firstDay.getDay()+6)%7; // lunes=0
+  const daysInMonth = new Date(y, m+1, 0).getDate();
+  const byDay = {};
+  calMatches.forEach(mt => {
+    (byDay[mt.dateEvent] = byDay[mt.dateEvent]||[]).push(mt);
+  });
+  const todayStr = new Date().toISOString().slice(0,10);
+  let cells = '';
+  for(let i=0;i<startWeekday;i++) cells += `<div class="cal-day cal-empty"></div>`;
+  for(let d=1; d<=daysInMonth; d++){
+    const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dayMatches = byDay[dateStr] || [];
+    const classes = ['cal-day'];
+    if(dateStr === todayStr) classes.push('cal-today');
+    if(dateStr === calSelectedDate) classes.push('cal-selected');
+    if(dayMatches.length) classes.push('cal-has-match');
+    cells += `<div class="${classes.join(' ')}" onclick="selectCalDay('${dateStr}')">
+      <span class="cal-daynum">${d}</span>
+      ${dayMatches.length ? `<span class="cal-icons">${dayMatches.map(mt=>mt.sportIcon).join('')}</span>` : ''}
+    </div>`;
+  }
+  return `
+    <div class="cal-header">
+      <button onclick="changeCalMonth(-1)">‹</button>
+      <span class="cal-title">${MONTH_NAMES[m]} ${y}</span>
+      <button onclick="changeCalMonth(1)">›</button>
+    </div>
+    <div class="cal-grid cal-weekdays"><div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div><div>D</div></div>
+    <div class="cal-grid">${cells}</div>
+    <div id="calDayDetail" style="margin-top:16px;"></div>
+  `;
+}
+
+function renderCalDayDetail(){
+  const detailEl = document.getElementById('calDayDetail');
+  if(!detailEl) return;
+  if(!calSelectedDate){
+    detailEl.innerHTML = `<div class="jb-card"><div class="empty-state">Sin partidos del Real Madrid este mes 📅</div></div>`;
+    return;
+  }
+  const dayMatches = calMatches.filter(mt => mt.dateEvent === calSelectedDate);
+  const d = new Date(calSelectedDate+'T00:00:00');
+  const label = d.toLocaleDateString('es-ES', {weekday:'long', day:'numeric', month:'long'});
+  if(!dayMatches.length){
+    detailEl.innerHTML = `<h2 class="section-title" style="text-transform:capitalize;">${label}</h2><div class="jb-card"><div class="empty-state">Sin partidos este día</div></div>`;
+    return;
+  }
+  detailEl.innerHTML = `<h2 class="section-title" style="text-transform:capitalize;">${label}</h2>` +
+    dayMatches.map(mt => matchCardHTML(mt, null, pickTeamBadge(mt,'Real Madrid'))).join('');
+}
+
+window.changeCalMonth = function(delta){
+  calState.month += delta;
+  if(calState.month < 0){ calState.month = 11; calState.year--; }
+  if(calState.month > 11){ calState.month = 0; calState.year++; }
+  loadCalendario();
+};
+window.selectCalDay = function(dateStr){
+  calSelectedDate = dateStr;
+  document.getElementById('calendarContent').innerHTML = calendarGridHTML(calState.year, calState.month);
+  renderCalDayDetail();
+};
+
+async function loadExplorar(){
+  const el = document.getElementById('explorarContent');
+  el.innerHTML = '<div class="skeleton"></div><div class="skeleton"></div>';
+
+  if(currentSub === 'futbolue'){
+    const leagueNames = [
+      {label:'Premier League', id:LEAGUE_ID.premier, fd:FD_CODE.premier},
+      {label:'Serie A', id:LEAGUE_ID.serieA, fd:FD_CODE.serieA},
+      {label:'Bundesliga', id:LEAGUE_ID.bundesliga, fd:FD_CODE.bundesliga},
+      {label:'Champions League', id:LEAGUE_ID.champions, fd:FD_CODE.champions},
+    ];
+    let html = '';
+    for(const l of leagueNames){
+      const evs = await getBestLeagueUpcoming(l.fd, l.id, false);
+      const body = evs.length ? evs.slice(0,10).map(e=>matchCardHTML(e)).join('') : `<div class="jb-card"><div class="empty-state">Sin partidos próximos disponibles</div></div>`;
+      html += collapsibleSection(l.label + jornadaLabel(evs), evs.length, body, true);
+    }
+    el.innerHTML = html;
+  }
+
+  if(currentSub === 'tablas'){
+    let html = '';
+    for(const l of FD_LEAGUES){
+      const result = await getFullLeagueTable(l.fd, l.id);
+      const body = standingsTableHTML(result.table, FD_TEAM_REAL_MADRID) || `<div class="jb-card"><div class="empty-state">Sin datos disponibles</div></div>`;
+      const badge = result.source === 'fd' ? '' : ' (Top 5)';
+      html += collapsibleSection(l.label + badge, result.table.length, body, l.id === LEAGUE_ID.laliga);
+    }
+    el.innerHTML = html;
+  }
+
+  if(currentSub === 'goleadores'){
+    let html = '';
+    for(const l of FD_LEAGUES){
+      const scorers = await getFdTopScorers(l.fd);
+      const body = scorersTableHTML(scorers);
+      html += collapsibleSection(l.label, scorers ? scorers.length : 0, body, l.id === LEAGUE_ID.laliga);
+    }
+    el.innerHTML = html || `<div class="jb-card"><div class="empty-state">Necesitas configurar el Worker en Ajustes para ver goleadores 🥅</div></div>`;
+  }
+
+  if(currentSub === 'ufc'){
+    const evs = await getLeagueUpcoming(LEAGUE_ID.ufc, true);
+    el.innerHTML = evs.length
+      ? evs.slice(0,8).map(e=>{
+          const poster = e.strPoster || e.strThumb || e.strBanner || e.strFanart || '';
+          return `<div class="jb-card">
+            ${poster ? `<img src="${poster}" style="width:100%;border-radius:12px;margin-bottom:10px;object-fit:cover;max-height:180px;" onerror="this.style.display='none'">` : ''}
+            <div style="font-weight:700;font-size:16px;">${e.strEvent||''}</div>
+            <div class="match-meta"><span>${formatDate(e)}</span><span>${e.strVenue||''}</span></div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;">${countdownChipHTML(e)}${icsButtonHTML(e)}</div>
+          </div>`;
+        }).join('')
+      : `<div class="jb-card"><div class="empty-state">Sin eventos UFC disponibles ahora mismo 🥊</div></div>`;
+  }
+
+  if(currentSub === 'todas'){
+    el.innerHTML = Object.values(NEWS_LINKS).map(newsLinkCard).join('');
+  }
+}
+
+/* ============ NAV / TABS ============ */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const view = btn.dataset.view;
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById('view-'+view).classList.add('active');
+    if(view === 'explorar') loadExplorar();
+    if(view === 'calendario') loadCalendario();
+  });
+});
+document.querySelectorAll('.subtab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.subtab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSub = btn.dataset.sub;
+    loadExplorar();
+  });
+});
+
+/* ============ THEME ============ */
+function applyTheme(t){
+  document.documentElement.setAttribute('data-jb-theme', t);
+  localStorage.setItem('jbsports_theme', t);
+  document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.t === t));
+}
+document.querySelectorAll('.theme-dot').forEach(dot => {
+  dot.addEventListener('click', () => applyTheme(dot.dataset.t));
+});
+applyTheme(localStorage.getItem('jbsports_theme') || 'mint');
+
+/* ============ SETTINGS MODAL ============ */
+document.getElementById('btnSettings').addEventListener('click', () => {
+  document.getElementById('fdTokenInput').value = getWorkerUrl();
+  const lastError = localStorage.getItem('jbsports_fd_lasterror');
+  const errRow = document.getElementById('fdErrorRow');
+  if(lastError){ document.getElementById('fdErrorText').textContent = lastError; errRow.style.display = 'block'; }
+  else { errRow.style.display = 'none'; }
+  const notifBtn = document.getElementById('btnEnableNotif');
+  if('Notification' in window && Notification.permission === 'granted' && localStorage.getItem('jbsports_notif_enabled') === '1'){
+    notifBtn.textContent = 'Activado ✓';
+  }
+  document.getElementById('settingsModal').classList.add('active');
+});
+document.getElementById('btnSaveFdToken').addEventListener('click', () => {
+  setWorkerUrl(document.getElementById('fdTokenInput').value);
+  Object.keys(localStorage).filter(k=>k.startsWith('jbsports_fdtable_')).forEach(k=>localStorage.removeItem(k));
+  localStorage.removeItem('jbsports_fd_lasterror');
+  document.getElementById('settingsModal').classList.remove('active');
+  loadInicio();
+});
+document.getElementById('btnCloseSettings').addEventListener('click', () => document.getElementById('settingsModal').classList.remove('active'));
+document.getElementById('settingsModal').addEventListener('click', (e) => { if(e.target.id === 'settingsModal') e.currentTarget.classList.remove('active'); });
+document.getElementById('btnClearCache').addEventListener('click', () => { clearAllCache(); loadInicio(); document.getElementById('settingsModal').classList.remove('active'); });
+
+/* ============ AVISOS ANTES DEL PARTIDO ============ */
+// Aviso "best effort": solo funciona mientras la app siga abierta (en segundo plano
+// también vale, pero no si se cierra del todo). Para un recordatorio 100% fiable,
+// usa el botón 📅 de cada partido (añade evento al calendario del móvil con su propia alarma).
+let scheduledNotifTimer = null;
+function scheduleKickoffNotification(ev){
+  if(Notification.permission !== 'granted') return;
+  if(scheduledNotifTimer) clearTimeout(scheduledNotifTimer);
+  const d = getKickoffDate(ev);
+  if(!d || isNaN(d)) return;
+  const notifyAt = d.getTime() - 60*60*1000; // 1h antes
+  const delay = notifyAt - Date.now();
+  if(delay <= 0 || delay > 24*60*60*1000) return; // solo si falta entre 0 y 24h
+  scheduledNotifTimer = setTimeout(() => {
+    new Notification('⏰ ¡Partido en 1 hora!', {
+      body: `${ev.strHomeTeam} vs ${ev.strAwayTeam} · ${ev.strLeague||''}`,
+      icon: 'icon-192.png'
+    });
+  }, delay);
+}
+document.getElementById('btnEnableNotif').addEventListener('click', async () => {
+  if(!('Notification' in window)){ alert('Tu navegador no soporta notificaciones'); return; }
+  const perm = await Notification.requestPermission();
+  const btn = document.getElementById('btnEnableNotif');
+  if(perm === 'granted'){
+    btn.textContent = 'Activado ✓';
+    localStorage.setItem('jbsports_notif_enabled', '1');
+  } else {
+    btn.textContent = 'Sin permiso';
+  }
+});
+
+/* ============ REFRESH ============ */
+document.getElementById('btnRefresh').addEventListener('click', () => {
+  clearAllCache();
+  const activeView = document.querySelector('.tab-btn.active').dataset.view;
+  if(activeView === 'inicio') loadInicio(); else loadExplorar();
+});
+
+/* ============ INIT ============ */
+loadInicio();
+
+/* ============ PWA: registro del service worker ============ */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
